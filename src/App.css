@@ -1,0 +1,49 @@
+.mainpage{
+  align-content: center;
+  border: 1px solid black;
+}
+.mainpage-header{
+  height:100px;
+  display: block;
+  border: 1px solid black;
+}
+.mainpage-user{
+  float:right;
+  position: absolute;
+  top: 20px;
+  right: 250px;
+}
+.mainpage-form-user{
+  height: 150px;
+  width: 250px;
+  float: right;
+  position: absolute;
+  background-color: white;
+  border: 1px solid black
+}
+.mainpage-main-content{
+  display: block;
+  border: 1px solid black;
+  margin-left: 200px;
+  height: 300px;
+  width: 65%;
+  background-color: coral;
+}
+.mainpage-nav-sidebar{
+  display: block;
+  float: left ;
+  witdth: 200px;
+  height: 100px;
+  border: 1px solid black;
+}
+.mainpage-nav-sidebar ul {
+  margin: 10px;
+}
+.mainpage-footer {
+  height: 100px;
+  display: block;
+  border: 1px solid black;
+}
+.login-form {
+  margin: 5px;
+}
