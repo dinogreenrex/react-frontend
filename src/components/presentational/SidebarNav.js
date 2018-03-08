@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
-import Content from './MainContent';
-import Address from './PersonAddress'
-import Relations from './PersonRelations'
-import Person from './Person'
-import {hidemaincontent} from '../actions/hidemaincontent'
+import Address from '../../containers/PersonAddress'
+import Relations from '../../containers/PersonRelations'
+import Person from '../../containers/Person'
 import { connect } from 'react-redux'
 
 
@@ -15,8 +13,7 @@ class SideBarNav extends React.Component {
 
     render(){
         return (
-            <div>
-
+            <div className="sidebar-nav">
                 <Switch>
                     <Route path="/Person" component={Person}  />
                     <Route  path="/Address" component={Address} />
