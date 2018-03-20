@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import Topbar from './containers/Topbar';
-import Sidebar from './containers/Sidebar';
-import Footer from './containers/Footer.js';
+import Sidebar from './containers/Sidepane';
+import BottomBar from './containers/BottomBar.js';
+import RouterMain from './components/RouterMain'
+
+import Sidepane from './containers/Sidepane'
 
 import {
     BrowserRouter as Router,
@@ -14,7 +17,7 @@ import {
 
 /*********************************/
 
-class App extends Component {
+class App1 extends Component {
     constructor(props){
         super(props);
         console.log(props);
@@ -22,15 +25,15 @@ class App extends Component {
 
   render() {
       return (
-        <div>
-           <Topbar />
-           <Sidebar />
-           <Footer />
-        </div>
+          <div>
+              <Topbar toggleform="false" isUserLoggedIn="false" formenabled="true" />
+                    <Sidepane />
+          </div>
+
 
     );
   }
 }
 
 
-export default App;
+export default App1;

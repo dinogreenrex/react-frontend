@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import LoginLink from '../components/presentational/LoginLink'
 import LoginForm from '../components/presentational/LoginForm'
 import { connect } from 'react-redux'
+import UserLoggedInContainer from '../containers/LoggedInUsersContainer'
+import PropTypes from 'prop-types';
 
 
 class LoginFormContainer extends React.Component {
@@ -51,8 +53,9 @@ class LoginFormContainer extends React.Component {
     render() {
         return (
             <div>
-                <LoginLink />
-                {this.props.formactive ? <LoginForm />: null }
+                {this.props.isUserLoggedIn ?  <UserLoggedInContainer />  : null}
+                {this.props.loginLinkActive ? null : <LoginLink />}
+                {this.props.toggleform ? <LoginForm />: null }
 
             </div>
         )
@@ -62,7 +65,7 @@ class LoginFormContainer extends React.Component {
 export default connect(
     (state,props) => {
         return {
-            formactive: state.freducer.formactive
+            toggleform: state.freducer.toggleform
         }
     }
 )(LoginFormContainer) ;
