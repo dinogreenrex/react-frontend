@@ -4,10 +4,11 @@ import { Provider } from 'react-redux'
 import RouterMain from './components/RouterMain'
 import InitStore from './components/AppStore'
 import registerServiceWorker from './registerServiceWorker'
-import Tabs from 'grommet/components/Tabs';
-import Tab from 'grommet/components/Tab';
-import Paragraph from 'grommet/components/Paragraph';
-import 'semantic-ui-css/semantic.min.css'
+import App from './App'
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+
+import 'babel-polyfill'
+import 'antd/lib/style/index.css'
 
 
 
@@ -16,10 +17,7 @@ import 'semantic-ui-css/semantic.min.css'
 const store = InitStore();
 ReactDOM.render(
     <Provider store={store} >
-                    <div>
-
-                    <RouterMain />
-                    </div>
+        <RouterMain />
     </Provider>,
     document.getElementById('root'));
 

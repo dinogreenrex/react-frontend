@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.3.1",
     "axios": "^0.18.0",
+    "babel-preset-env": "^1.6.1",
     "cross-fetch": "^2.1.0",
+    "dva-cli": "^0.9.2",
     "prop-types": "^15.6.1",
     "radium": "^0.22.1",
     "react": "^16.2.0",
@@ -17,6 +20,7 @@
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
+    "reinstall": "^2.0.0",
     "semantic-ui-css": "^2.3.0",
     "semantic-ui-react": "^0.78.3",
     "webpack-hot-middleware": "^2.21.2"
@@ -26,5 +30,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0"
   }
 }

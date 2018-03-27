@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Segment } from 'semantic-ui-react'
 
 
 class Address extends React.Component {
@@ -10,9 +9,9 @@ class Address extends React.Component {
     render(){
 
         return (
-            <Segment>
+            <div>
                 <h2>Some Addresses for persons</h2>
-            </Segment>
+            </div>
         )
     }
 }

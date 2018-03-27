@@ -1,9 +1,14 @@
 const freducer = (state = {
     toggleform: false,
-    isUserLoggedIn: false,
+    isUserLoggedIn: true,
     loginButtonActive: true,
     menuItemActive: 'home',
     selectedRow: '',
+    activeTabKey: '1',
+    tabpanels: [
+        ],
+    editPersonFormData: null
+
 } , action) => {
 
     switch (action.type) {
@@ -57,6 +62,55 @@ const freducer = (state = {
                 usersession: null,
                 loginButtonActive: true,
             })
+
+        /* Tab Editor */
+        case "INIT_TAB_PANEL":
+            let tabpanel = action.initpanel;
+            return Object.assign({}, state, {
+                tabpanels: tabpanel
+            })
+        case "CHANGE_ACTIVE_TAB":
+            return Object.assign({}, state, {
+                activeTabKey: action.activeTabKey
+            })
+
+        /*End of Tab Editor */
+        /* FETCH SINGLE PERSON FOR EDIT FORM */
+        case 'FETCH_SINGLE_PERSON':
+            return Object.assign({}, state, {
+                uiInProgress: true,
+                fetchpersonresult: false,
+            })
+        case 'ADD_NEW_TAB_ITEM':
+            let tabulars = state.tabpanels.slice();
+            let lastkey = tabulars[tabulars.length-1].key;
+            let newTab = {
+                title: 'Tab '+lastkey, content: null, key:  lastkey,
+            }
+            tabulars.push(newTab);
+
+            return Object.assign({}, state, {
+                uiInProgress: true,
+                tabpanels: tabulars,
+            })
+        case 'FETCH_SINGLE_PERSON_SUCCESS':
+            let tabs = state.tabpanels.slice();
+            /*let lastkey = tabs[tabs.length-1].key;
+            let newTab = {
+                title: 'Tab '+lastkey, content: null, key:  lastkey,
+            }
+            tabs.push(newTab);*/
+            return Object.assign({}, state, {
+                uiInProgress: false,
+                editPersonFormData: action.payload,
+            })
+        case 'FETCH_SINGLE_PERSON_ERROR':
+            return Object.assign({}, state, {
+                uiInProgress: false,
+                editPersonFormError: action.error
+            })
+        /* END OF FETCH SINGLE PERSON FOR EDIT FORM */
+
         /* FETCH PERSON FOR LIST */
         case 'FETCH_PERSON':
             return Object.assign({}, state, {

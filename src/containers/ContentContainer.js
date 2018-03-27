@@ -1,10 +1,14 @@
 import React, {Component} from 'react' ;
-import Box from 'grommet/components/Box'
-import {Switch} from 'react-router-dom';
 import Person from './Person';
 import PersonAddress from './PersonAddress'
 import Relations from './PersonRelations'
+import Address from './PersonAddress'
 import {connect} from 'react-redux'
+import {Route,withRouter} from 'react-router-dom'
+import AuthRoute from '../components/presentational/AuthRoute'
+import PersonContainer from './PersonContainer'
+import JingaTab from './TabComponent'
+import {Row,Col} from 'antd'
 class ContentContainer extends React.Component {
     constructor(props)
     {
@@ -14,10 +18,26 @@ class ContentContainer extends React.Component {
 
     render(){
        console.log(this.props.match)
+        let isAuth = 1;
         return (
-            <Box>
-            </Box>
+            <div className="content" style={{width: '100%'}}>
+                <Route exact
+                       path="/Relations"
+                       component={Relations} />
+                <AuthRoute
+                    exact
+                    path="/Person"
+                    isAuth={isAuth}
+                    component={PersonContainer}
+                />
+                <Route exact
+                       path="/Address"
+                       component={Address} />
+                <Route exact
+                       path="/TabTests"
+                       component={JingaTab} />
+            </div>
         )
     }
 }
-export default connect()(ContentContainer)
+export default withRouter(connect()(ContentContainer))

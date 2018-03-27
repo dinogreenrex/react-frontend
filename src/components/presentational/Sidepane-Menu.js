@@ -1,37 +1,33 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
-import {Menu} from 'semantic-ui-react'
+import {Menu, Button} from 'antd'
 import {connect} from 'react-redux'
+import 'antd/lib/menu/style/index.css'
+
 
 class SidepaneMenu extends React.Component {
     constructor(props){
         super(props);
         console.log(this)
-        this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
+
     }
-    handleMenuItemClick(e,name){
-        e.preventDefault();
-        this.props.dispatch({type:'MENU_ITEM_ACTIVE', name: name.name})
-    }
+
     render() {
-        let activeItem = this.props.activeItem;
         console.log(this.props.menuItemActive)
         return (
-            <Menu vertical>
-                <Menu.Item as={Link} to="/" > Home </Menu.Item>
-                <Menu.Item as={Link} to="/Person" > Person </Menu.Item>
-                <Menu.Item as={Link} to="/Address" > Address </Menu.Item>
-                <Menu.Item as={Link} to="/Relations" > Relations</Menu.Item>
+            <div>
+            <Menu style={{width: 150}} mode="vertical">
+                <Menu.Item> <Link to="/"> Home </Link></Menu.Item>
+                <Menu.Item> <Link to="/Person"> Person </Link> </Menu.Item>
+                <Menu.Item> <Link to="/Address"> Address </Link></Menu.Item>
+                <Menu.Item> <Link to="/Relations"> Relations </Link></Menu.Item>
+                <Menu.Item> <Link to="/TabTests"> Tabs</Link></Menu.Item>
             </Menu>
+            </div>
+
 
         )
     }
 }
-export default connect(
-    (state) => {
-        return {
-            menuItemActive: state.freducer.menuItemActive,
-        }
-    }
-)(SidepaneMenu)
+export default SidepaneMenu

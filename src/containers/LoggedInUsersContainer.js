@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import LoggedInUser from './LoggedInUser'
-import {Button} from 'semantic-ui-react'
+import {Button} from 'antd'
+import 'antd/lib/button/style/index.css'
 import {HOC1} from '../components/HOCForEverything'
 
 

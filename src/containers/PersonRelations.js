@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Segment } from 'semantic-ui-react'
 
 class Relations extends React.Component {
     constructor(props){
@@ -7,9 +6,9 @@ class Relations extends React.Component {
     }
     render(){
         return (
-            <Segment>
+            <div>
                 <h2>Person relations with other persons</h2>
-            </Segment>
+            </div>
         )
     }
 }

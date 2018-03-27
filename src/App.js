@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 import Topbar from './containers/Topbar';
-import Sidebar from './containers/Sidepane';
+import Sidebar from './components/presentational/Sidepane-Menu';
+
 import BottomBar from './containers/BottomBar.js';
 import RouterMain from './components/RouterMain'
+import {Layout} from 'antd'
+//import Footer from './containers/BottomBar'
+import ContentContainer from './containers/ContentContainer'
+import { Row, Col} from 'antd';
+
 
 import Sidepane from './containers/Sidepane'
 
@@ -17,7 +23,9 @@ import {
 
 /*********************************/
 
-class App1 extends Component {
+const { Header, Sider, Content, Footer } = Layout;
+
+class App extends Component {
     constructor(props){
         super(props);
         console.log(props);
@@ -26,8 +34,20 @@ class App1 extends Component {
   render() {
       return (
           <div>
-              <Topbar toggleform="false" isUserLoggedIn="false" formenabled="true" />
-                    <Sidepane />
+              <Row>
+                   <Col span={24}>
+                       <Topbar toggleform="false" isUserLoggedIn="false" formenabled="true" />
+                   </Col>
+              </Row>
+                <Row>
+                   <Col span={6}>
+                       <Sidebar />
+                   </Col>
+                  <Col span={13}>
+                        <ContentContainer />
+                  </Col>
+              </Row>
+
           </div>
 
 
@@ -36,4 +56,4 @@ class App1 extends Component {
 }
 
 
-export default App1;
+export default App;

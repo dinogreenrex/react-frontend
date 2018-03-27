@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
 import HOC, {HOC1} from '../components/HOCForEverything'
-import {Segment, Button, Container} from 'semantic-ui-react'
+import {Button, Layout} from 'antd'
 import {NavLink, Route} from 'react-router-dom'
 import LoginForm from '../components/presentational/LoginForm'
 import LoggedInUsersContainer from './LoggedInUsersContainer'
 import PropTypes from 'prop-types'
+
+
 
 class LoginContainer extends React.Component {
     constructor(props){
@@ -52,7 +54,7 @@ class LoginContainer extends React.Component {
         let payload;
         return (
             <div>
-                <Segment loading={this.props.processinglogin ? true: false}>
+                <div >
                     <div className="Login-Button">
                     {this.props.loginButtonActive ?
                         <div>
@@ -79,7 +81,7 @@ class LoginContainer extends React.Component {
                             : null
                         }
                     </div>
-                </Segment>
+                </div>
             </div>
         )
     }
