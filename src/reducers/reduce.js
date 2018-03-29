@@ -3,7 +3,7 @@ const freducer = (state = {
     isUserLoggedIn: true,
     loginButtonActive: true,
     menuItemActive: 'home',
-    selectedRow: '',
+    currentTableSelection: null,
     activeTabKey: '1',
     tabpanels: [
         ],
@@ -62,7 +62,10 @@ const freducer = (state = {
                 usersession: null,
                 loginButtonActive: true,
             })
-
+        case "CURRENT_TABLE_SELECTION":
+            return Object.assign({}, state, {
+                currentTableSelection: action.selectionId
+            })
         /* Tab Editor */
         case "INIT_TAB_PANEL":
             let tabpanel = action.initpanel;

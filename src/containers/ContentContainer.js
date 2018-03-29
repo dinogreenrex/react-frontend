@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import {Route,withRouter} from 'react-router-dom'
 import AuthRoute from '../components/presentational/AuthRoute'
 import PersonContainer from './PersonContainer'
-import JingaTab from './TabComponent'
+import ListComponent from './ListComponent'
 import {Row,Col} from 'antd'
 class ContentContainer extends React.Component {
     constructor(props)
@@ -35,7 +35,7 @@ class ContentContainer extends React.Component {
                        component={Address} />
                 <Route exact
                        path="/TabTests"
-                       component={JingaTab} />
+                       component={ListComponent} />
             </div>
         )
     }

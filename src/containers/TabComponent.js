@@ -91,7 +91,6 @@ class JingaTab extends React.Component {
         let dataforpanel = {
             tabledata: this.props.fetchresult,
             newTabWithRecord: this.addNewTabWithRecord,
-            initFirstTabPanel: this.initFirstTabPanel,
         }
         const HocListComponent = HOC1(ListComponent, dataforpanel);
         const panes = [
