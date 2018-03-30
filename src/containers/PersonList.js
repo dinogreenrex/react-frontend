@@ -33,30 +33,7 @@ class PersonList extends React.Component {
 	}
 
 	render(){
-    const columns = [
-        {
-					title: 'FName',
-					dataIndex: 'fname',
-					key: 'fname',
-        },
-        {
-					title: 'LName',
-					dataIndex: 'lname',
-					key: 'lname',
 
-        },
-        {
-					title: 'Height',
-					dataIndex: 'height',
-					key: 'height',
-
-        },
-        {
-					title: 'Kilos',
-					dataIndex: 'kilograms',
-					key: 'kilograms',
-        }
-    ]
 
 		let gutter={ xs: 16, sm: 32, md: 24, lg: 32 }
 		const buttonDisabled = this.props.currentRecord ? false : true;
@@ -97,7 +74,7 @@ class PersonList extends React.Component {
 					rowSelection={rowSelection}
 					dataSource={this.props.personList}
 					rowClassName="test"
-					columns={columns}
+					columns={this.props.columns}
 					selectable={false}
 					size="large"
 					type="radio"

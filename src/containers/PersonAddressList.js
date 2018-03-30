@@ -33,30 +33,7 @@ class PersonAddressList extends React.Component {
           })
     }
     render(){
-        const columns = [
-            {
-                title: 'Street',
-                dataIndex: 'street',
-                key: 'street',
-            },
-            {
-                title: 'City',
-                dataIndex: 'city',
-                key: 'city',
 
-            },
-            {
-                title: 'Country',
-                dataIndex: 'country',
-                key: 'country',
-
-            },
-            {
-                title: 'PostCode',
-                dataIndex: 'postalcode',
-                key: 'postalcode',
-            }
-        ]
         const buttonDisabled = this.props.currentRecord ? false : true;
         const cRecord = this.props.currentRecord;
         let number;
@@ -86,6 +63,7 @@ class PersonAddressList extends React.Component {
             e.preventDefault
             console.log(e, index);
         }
+
         return (
           <div>
               <TableToolbar />
@@ -94,7 +72,7 @@ class PersonAddressList extends React.Component {
                 rowSelection={rowSelection}
                 dataSource={this.props.personAddressList}
                 rowClassName="test"
-                columns={columns}
+                columns={this.props.columns}
                 selectable={false}
                 size="large"
                 type="radio"

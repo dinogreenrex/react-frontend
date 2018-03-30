@@ -7,6 +7,7 @@ import {Route,withRouter} from 'react-router-dom'
 import AuthRoute from '../components/presentational/AuthRoute'
 import PersonContainer from './PersonContainer'
 import PersonList from './PersonList'
+import {PersonAddressListColumns, PersonListColumns} from '../components/ListColumnDefinition'
 import {Row,Col} from 'antd'
 class ContentContainer extends React.Component {
     constructor(props)
@@ -16,25 +17,31 @@ class ContentContainer extends React.Component {
     }
 
     render(){
+
        console.log(this.props.match)
         let isAuth = 1;
         return (
             <div className="content" style={{width: '100%'}}>
                 <Route exact
-                       path="/Relations"
-                       component={Relations} />
+                   path="/Relations"
+                   component={Relations} />
+
                 <AuthRoute
-                    exact
-                    path="/Person"
-                    isAuth={isAuth}
-                    component={PersonContainer}
+                  exact
+                  path="/Person"
+                  isAuth={isAuth}
+                  component={PersonContainer}
                 />
+
                 <Route exact
-                       path="/Address"
-                       component={PersonAddressList} />
+                   path="/Address"
+                   render={() => <PersonAddressList columns={PersonAddressListColumns} />}
+                />
+
                 <Route exact
-                       path="/TabTests"
-                       component={PersonList} />
+                   path="/TabTests"
+                   render={() => <PersonList columns={PersonListColumns}/>}
+                />
             </div>
         )
     }
