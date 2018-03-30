@@ -113,7 +113,22 @@ const freducer = (state = {
                 editPersonFormError: action.error
             })
         /* END OF FETCH SINGLE PERSON FOR EDIT FORM */
-
+				/* ABSTRACT CALL TO SERVER */
+	      case 'ABSTRACT_FETCH':
+		      return Object.assign({}, state, {
+			      fetchInProgress: true
+		      })
+		    case 'ABSTRACT_FETCH_SUCCESS':
+			    return Object.assign({}, state, {
+				    fetchInProgress: false,
+				    abstractResult: action.result,
+			    })
+		    case 'ABSTRACT_FETCH_ERROR':
+			    return Object.assign({}, state, {
+				    fetchInProgress: false,
+				    abstractError: action.error,
+			    })
+				/* END OF ABSTRACT CALL TO SERVER */
         /* FETCH PERSON_ADDRESS */
         case 'FETCH_PERSON_ADDRESS':
             return Object.assign({}, state, {

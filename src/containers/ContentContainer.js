@@ -17,7 +17,24 @@ class ContentContainer extends React.Component {
     }
 
     render(){
-
+        const personParams = {
+          url: 'http://localhost/api/koalas',
+          columns: PersonListColumns,
+          abstractResult: this.props.abstractResult ? this.props.abstractResult : null,
+          abstractError: this.props.abstractError ? this.props.abstractError : null,
+          fetchInProgress: this.props.fetchInProgress,
+          currentRecord: this.props.currentRecord ? this.props.currentRecord : null,
+          dispatch: this.props.dispatch,
+        }
+        const personAddressParams = {
+          url: 'http://localhost/api/PersonAddress',
+          columns: PersonAddressListColumns,
+          abstractResult: this.props.abstractResult ? this.props.abstractResult : null,
+          abstractError: this.props.abstractError ? this.props.abstractError : null,
+          fetchInProgress: this.props.fetchInProgress,
+          currentRecord: this.props.currentRecord ? this.props.currentRecord : null,
+          dispatch: this.props.dispatch,
+        }
        console.log(this.props.match)
         let isAuth = 1;
         return (
@@ -35,15 +52,23 @@ class ContentContainer extends React.Component {
 
                 <Route exact
                    path="/Address"
-                   render={() => <PersonAddressList columns={PersonAddressListColumns} />}
+                   render={() => <PersonAddressList {...personAddressParams} />}
                 />
 
                 <Route exact
                    path="/TabTests"
-                   render={() => <PersonList columns={PersonListColumns}/>}
+                   render={() => <PersonList {...personParams} />}
                 />
             </div>
         )
     }
 }
-export default withRouter(connect()(ContentContainer))
+export default withRouter(connect(
+  state => {
+    return {
+      abstractResult: state.freducer.abstractResult,
+      abstractError: state.freducer.abstractError,
+      fetchInProgress: state.freducer.fetchInProgress,
+    }
+  }
+)(ContentContainer))

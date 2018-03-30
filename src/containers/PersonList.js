@@ -16,17 +16,16 @@ class PersonList extends React.Component {
 
 	}
 	componentWillMount(){
-		this.props.personList ? null :
 			this.props.dispatch(dispatch => {
-				dispatch({type: 'FETCH_PERSON', isListLoading: true});
-				axios.get('http://localhost/api/koalas', {
+				dispatch({type: "ABSTRACT_FETCH"});
+				axios.get(this.props.url, {
 				}).then(
 					(response) => {
-							dispatch({type: 'FETCH_PERSON_SUCCESS', result: response.data} );
+							dispatch({type: "ABSTRACT_FETCH_SUCCESS", result: response.data} );
 					},
 
 					(error) => {
-							dispatch({type: 'FETCH_PERSON_ERROR', error: error.response.data.message })
+							dispatch({type: "ABSTRACT_FETCH_ERROR", error: error.response.data.message })
 					}
 				)
 			})
@@ -72,13 +71,13 @@ class PersonList extends React.Component {
 				<Table
 					rowKey={record=>record.id}
 					rowSelection={rowSelection}
-					dataSource={this.props.personList}
+					dataSource={this.props.abstractResult}
 					rowClassName="test"
 					columns={this.props.columns}
 					selectable={false}
 					size="large"
 					type="radio"
-					loading={this.props.isListLoading}
+					loading={this.props.fetchInProgress}
 					//Selected.Id
 					//Toolbar
 					onRow={(record) => {
@@ -95,12 +94,4 @@ class PersonList extends React.Component {
 	}
 }
 
-export default connect(
-	state => {
-		return {
-			personList: state.PersonReducer.personList,
-			isListLoading: state.PersonReducer.isListLoading,
-			currentRecord: state.PersonReducer.currentRecord,
-		}
-	}
-)(PersonList)
+export default PersonList;
