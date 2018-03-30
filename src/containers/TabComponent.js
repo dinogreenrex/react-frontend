@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Tabs } from 'antd';
 import {connect} from 'react-redux'
-import ListComponent from './ListComponent';
+import ListComponent from './PersonList';
 import {HOC1} from '../components/HOCForEverything'
 import axios from 'axios';
 import FormComponent from '../components/FormComponent'

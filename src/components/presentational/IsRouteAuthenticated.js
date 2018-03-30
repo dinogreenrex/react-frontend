@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import Address from '../../containers/PersonAddress'
+import Address from '../../containers/PersonAddressList'
 import { BrowserRouter as Router, Route, Switch, Redirect, Link} from 'react-router-dom'
 import Relations from '../../containers/PersonRelations'
 

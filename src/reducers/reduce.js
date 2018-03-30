@@ -114,6 +114,21 @@ const freducer = (state = {
             })
         /* END OF FETCH SINGLE PERSON FOR EDIT FORM */
 
+        /* FETCH PERSON_ADDRESS */
+        case 'FETCH_PERSON_ADDRESS':
+            return Object.assign({}, state, {
+                personAddressInProgress: true
+            })
+        case 'FETCH_PERSON_ADDRESS_SUCCESS':
+            return Object.assign({}, state, {
+                personAddressInProgress: false
+            })
+        case 'FETCH_PERSON_ADDRESS_ERROR':
+            return Object.assign({}, state, {
+                personAddressInProgress: false
+            })
+        /* END OF FETCH PERSON_ADDRESS */
+
         /* FETCH PERSON FOR LIST */
         case 'FETCH_PERSON':
             return Object.assign({}, state, {

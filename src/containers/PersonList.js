@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { Table, Button, Row, Col, Popconfirm, message } from 'antd';
+import { Table, Button, Row, Col, Popconfirm, message,Icon } from 'antd';
 import axios from 'axios';
 import {connect} from 'react-redux'
 
-class ListComponent extends React.Component {
+class PersonList extends React.Component {
 	constructor(props){
 			super(props)
 		this.editRecord = this.editRecord.bind(this);
@@ -16,13 +16,13 @@ class ListComponent extends React.Component {
 
 	}
 	componentWillMount(){
-		this.props.fetchresult ? null :
+		this.props.personList ? null :
 			this.props.dispatch(dispatch => {
-				dispatch({type: 'FETCH_PERSON', uiInProgress: true});
+				dispatch({type: 'FETCH_PERSON', isListLoading: true});
 				axios.get('http://localhost/api/koalas', {
 				}).then(
 					(response) => {
-							dispatch({type: 'FETCH_PERSON_SUCCESS', payload: response.data} );
+							dispatch({type: 'FETCH_PERSON_SUCCESS', result: response.data} );
 					},
 
 					(error) => {
@@ -59,37 +59,27 @@ class ListComponent extends React.Component {
     ]
 
 		let gutter={ xs: 16, sm: 32, md: 24, lg: 32 }
-		const buttonDisabled = this.props.currentTableSelection ? false : true;
-		const cRecord = this.props.currentTableSelection;
+		const buttonDisabled = this.props.currentRecord ? false : true;
+		const cRecord = this.props.currentRecord;
 		let number;
 		const eventCancelEdit = () =>  message.error('Clicked on No', number=1 );
 
 		const TableToolbar = (props) => (
-				<Row gutter={gutter}>
-					<Col className="gutter-row" span={6}>
-						<div className="gutter-box">
-							<Button>Insert</Button>
-						</div>
-					</Col>
-					<Col className="gutter-row" span={6}>
-						<div className="gutter-box">
-							<Button disabled={buttonDisabled} onClick={this.editRecord(cRecord)}>Edit</Button>
+				<Button.Group>
 
-						</div>
-					</Col>
-					<Col className="gutter-row" span={6}>
-						<div className="gutter-box">
+							<Button icon="plus-circle">Insert</Button>
+
+							<Button icon="edit" disabled={buttonDisabled} onClick={this.editRecord(cRecord)}>Edit</Button>
+
 
 							<Popconfirm title="Are you sure delete this task?" onConfirm={this.deleteRecord(cRecord)} onCancel={eventCancelEdit} okText="Yes" cancelText="No">
-								<Button disabled={buttonDisabled} >Delete</Button>
+								<Button icon="delete" disabled={buttonDisabled} >Delete</Button>
 							</Popconfirm>
-						</div>
-					</Col>
-				</Row>
+					</Button.Group>
 		)
 		const rowSelection = {
 			onSelect: (selectedRowKeys, selections , selectedRows) => {
-				this.props.dispatch({type:"CURRENT_TABLE_SELECTION", selectionId: selectedRowKeys.id})
+				this.props.dispatch({type:"CURRENT_RECORD_SELECTION", selectionId: selectedRowKeys.id})
 				console.log(selectedRows)
 
 			},
@@ -105,21 +95,20 @@ class ListComponent extends React.Component {
 				<Table
 					rowKey={record=>record.id}
 					rowSelection={rowSelection}
-					dataSource={this.props.fetchresult}
+					dataSource={this.props.personList}
 					rowClassName="test"
-					onRowClick={console.log(this)}
 					columns={columns}
 					selectable={false}
 					size="large"
 					type="radio"
-					loading={this.props.uiInProgress}
+					loading={this.props.isListLoading}
 					//Selected.Id
 					//Toolbar
 					onRow={(record) => {
 						return {
 							onSelect: clickHandler,  // onClick
 						};
-						}
+					}
 					}
 				/>
 			</div>
@@ -132,9 +121,9 @@ class ListComponent extends React.Component {
 export default connect(
 	state => {
 		return {
-			fetchresult: state.freducer.fetchpersonresult,
-			uiInProgress: state.freducer.uiInProgress,
-			currentTableSelection: state.freducer.currentTableSelection,
+			personList: state.PersonReducer.personList,
+			isListLoading: state.PersonReducer.isListLoading,
+			currentRecord: state.PersonReducer.currentRecord,
 		}
 	}
-)(ListComponent)
+)(PersonList)

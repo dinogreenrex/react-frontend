@@ -4,11 +4,15 @@ import { reducer as formReducer } from 'redux-form'
 
 import thunk from 'redux-thunk'
 import freducer from '../reducers/reduce'
+import PersonAddressReducer from '../reducers/PersonAddressReducer'
+import PersonReducer from '../reducers/PersonReducer'
 
 export default function InitStore(preloadedState) {
 
     const reducers = {
         freducer,
+        PersonAddressReducer,
+        PersonReducer,
         form: formReducer
     }
     const reducer = combineReducers(reducers);

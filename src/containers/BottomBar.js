@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import Footer from 'grommet/components/Footer'
 const BottomBar = () => (
-    <Footer>
+    <div>
         <p>Footer</p>
         <p>Add address and contacts</p>
-    </Footer>
+    </div>
 )
 
 export default BottomBar;

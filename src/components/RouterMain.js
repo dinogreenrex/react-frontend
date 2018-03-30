@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect, Link} from 'react-router-dom'
 
-import Address from '../containers/PersonAddress'
+import Address from '../containers/PersonAddressList'
 import Relations from '../containers/PersonRelations'
 import PersonContainer from '../containers/PersonContainer'
 import Person from '../containers/Person'
