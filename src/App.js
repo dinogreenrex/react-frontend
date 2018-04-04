@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Topbar from './containers/Topbar';
-import Sidebar from './components/presentational/Sidepane-Menu';
+import SidepaneMenu from './components/presentational/Sidepane-Menu';
 
 import BottomBar from './containers/BottomBar.js';
 import RouterMain from './components/RouterMain'
@@ -41,7 +41,7 @@ class App extends Component {
               </Row>
                 <Row>
                    <Col span={6}>
-                       <Sidebar />
+                       <SidepaneMenu />
                    </Col>
                   <Col span={13}>
                         <ContentContainer />
