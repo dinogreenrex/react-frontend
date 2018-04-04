@@ -1,14 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect, Link} from 'react-router-dom'
-
-import Address from '../containers/PersonAddressList'
-import Relations from '../containers/PersonRelations'
-import PersonContainer from '../containers/PersonContainer'
-import Person from '../containers/Person'
-import AuthRoute from './presentational/AuthRoute'
 import {connect} from 'react-redux'
 import App from '../App'
-import { Row, Col } from 'antd';
+
 
 
 
