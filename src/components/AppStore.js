@@ -1,19 +1,62 @@
 import React , {Component} from 'react'
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
-import { reducer as formReducer } from 'redux-form'
+import { reducer as formReducer } from 'react-redux-form'
+import {combineForms, createForms} from 'react-redux-form'
 
 import thunk from 'redux-thunk'
 import freducer from '../reducers/reduce'
-import PersonAddressReducer from '../reducers/PersonAddressReducer'
-import PersonReducer from '../reducers/PersonReducer'
+import {crudReducer} from '../reducers/crudReducer'
 
 export default function InitStore(preloadedState) {
+    const PersonAddress = {
+        formFields: {
+            city: {
+                label: 'City',
+                value: ''
+            },
+            street: {
+                label: 'Street',
+                value: '',
+            },
+            country: {
+                label: 'Country',
+                value: '',
+            },
+            postcode: {
+                label: 'Post Code',
+                value: '',
+            },
+        }
+    };
+    const Person = {
+        formFields: {
+            fname: {
+                label: 'First Name',
+                value: ''
+            },
+            lname: {
+                label: 'Last Name',
+                value: '',
+            },
+            height: {
+                label: 'Height',
+                value: '',
+            },
+            kilograms: {
+                label: 'Kilograms',
+                value: '',
+            },
+        }
+    }
 
     const reducers = {
         freducer,
-        PersonAddressReducer,
-        PersonReducer,
-        form: formReducer
+        personAddressReducer: crudReducer('PersonAddress'),
+        personReducer: crudReducer('Person'),
+        jingaForms: combineForms({
+          personAddress: PersonAddress,
+          person: Person,
+        }, 'jingaForms'),
     }
     const reducer = combineReducers(reducers);
 
@@ -33,7 +76,8 @@ export default function InitStore(preloadedState) {
         reducer,
         compose(
             mymiddleware,
-            window.devToolsExtension ? window.devToolsExtension() : f => f)
+            window.devToolsExtension ? window.devToolsExtension() : f => f),
+
     );
     {
         console.log(process.env.NODE_ENV)
