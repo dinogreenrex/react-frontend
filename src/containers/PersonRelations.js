@@ -6,9 +6,9 @@ class Relations extends React.Component {
     }
     render(){
         return (
-            <div>
-                <h2>Person relations with other persons</h2>
-            </div>
+          <div>
+              <h2>Person relations with other persons</h2>
+          </div>
         )
     }
 }

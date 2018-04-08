@@ -4,7 +4,7 @@ function HOC(Component, props, functions){
 
         render(){
             return (
-                <Component {...props} {...functions} />
+              <Component {...props} {...functions} />
             )
         }
     }

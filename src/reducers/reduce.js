@@ -5,29 +5,29 @@ const freducer = (state = {
     menuItemActive: 'home',
     activeTabKey: '1',
     tabpanels: [
-        ],
+    ],
 } , action) => {
 
     switch (action.type) {
-        /*
-        LOGIN_START {email: xxx, pass: xxx}
-         - UI pending state
-         - disable submit button
-         - show spinner
-        LOGIN_SUCCESS
-          { name: XXX, avatar: XX }
-          - hide spinner
-          - enable submit button
-          - add response to UI state
+      /*
+       LOGIN_START {email: xxx, pass: xxx}
+       - UI pending state
+       - disable submit button
+       - show spinner
+       LOGIN_SUCCESS
+       { name: XXX, avatar: XX }
+       - hide spinner
+       - enable submit button
+       - add response to UI state
 
-        LOGIN_ERROR
+       LOGIN_ERROR
 
-        PERSON_LIST_START
-        PERSON_LIST_SUCCESS
-        PERSON_LIST_ERROR
+       PERSON_LIST_START
+       PERSON_LIST_SUCCESS
+       PERSON_LIST_ERROR
 
 
-         */
+       */
         case 'GET_LOGIN':
             return Object.assign({}, state, {
                 processinglogin: true,
@@ -60,7 +60,7 @@ const freducer = (state = {
                 loginButtonActive: true,
             })
 
-        /* Tab Editor */
+      /* Tab Editor */
         case "INIT_TAB_PANEL":
             let tabpanel = action.initpanel;
             return Object.assign({}, state, {
@@ -71,7 +71,7 @@ const freducer = (state = {
                 activeTabKey: action.activeTabKey
             })
 
-        /*End of Tab Editor */
+      /*End of Tab Editor */
         case 'ADD_NEW_TAB_ITEM':
             let tabulars = state.tabpanels.slice();
             let lastkey = tabulars[tabulars.length-1].key;
@@ -84,30 +84,45 @@ const freducer = (state = {
                 uiInProgress: true,
                 tabpanels: tabulars,
             })
+        /*SUBMIT EDITED RECORD */
 
-				/* ABSTRACT CALL TO SERVER */
-	      case 'ABSTRACT_FETCH':
-		      return Object.assign({}, state, {
-			      fetchInProgress: true
-		      })
-		    case 'ABSTRACT_FETCH_SUCCESS':
-			    return Object.assign({}, state, {
-				    fetchInProgress: false,
-				    abstractResult: action.result,
-			    })
-		    case 'ABSTRACT_FETCH_ERROR':
-			    return Object.assign({}, state, {
-				    fetchInProgress: false,
-				    abstractError: action.error,
-			    })
-				/* END OF ABSTRACT CALL TO SERVER */
-        /* FETCH PERSON_ADDRESS */
+        case 'SUBMIT_PERSONADDRESS_RECORD_EDIT':
+            return Object.assign({}, state, {
+                fetchInProgress: true
+            })
+        case 'SUBMIT_PERSONADDRESS_RECORD_EDIT_SUCCESS':
+            return Object.assign({}, state, {
+                fetchInProgress: false,
+                abstractResult: action.result,
+            })
+        case 'SUBMIT_PERSONADDRESS_RECORD_EDIT_ERROR':
+            return Object.assign({}, state, {
+                fetchInProgress: false,
+                abstractError: action.error,
+            })
+      /* ABSTRACT CALL TO SERVER */
+        case 'ABSTRACT_FETCH':
+            return Object.assign({}, state, {
+                fetchInProgress: true
+            })
+        case 'ABSTRACT_FETCH_SUCCESS':
+            return Object.assign({}, state, {
+                fetchInProgress: false,
+                abstractResult: action.result,
+            })
+        case 'ABSTRACT_FETCH_ERROR':
+            return Object.assign({}, state, {
+                fetchInProgress: false,
+                abstractError: action.error,
+            })
+      /* END OF ABSTRACT CALL TO SERVER */
+      /* FETCH PERSON_ADDRESS */
 
-        /* END OF FETCH SINGLE ITEM */
+      /* END OF FETCH SINGLE ITEM */
         case 'MENU_ITEM_ACTIVE':
             return Object.assign({}, state, {
                 menuItemActive: action.name,
-        })
+            })
         case 'SELECTED_ROW':
             return Object.assign({}, state, {
                 selectedRow: action.row,

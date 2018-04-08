@@ -54,8 +54,8 @@ export default function InitStore(preloadedState) {
         personAddressReducer: crudReducer('PersonAddress'),
         personReducer: crudReducer('Person'),
         jingaForms: combineForms({
-          personAddress: PersonAddress,
-          person: Person,
+            personAddress: PersonAddress,
+            person: Person,
         }, 'jingaForms'),
     }
     const reducer = combineReducers(reducers);
@@ -69,14 +69,14 @@ export default function InitStore(preloadedState) {
     }
 
     const mymiddleware = applyMiddleware(
-        thunk,
-        logger,
+      thunk,
+      logger,
     );
     const store = createStore(
-        reducer,
-        compose(
-            mymiddleware,
-            window.devToolsExtension ? window.devToolsExtension() : f => f),
+      reducer,
+      compose(
+        mymiddleware,
+        window.devToolsExtension ? window.devToolsExtension() : f => f),
 
     );
     {

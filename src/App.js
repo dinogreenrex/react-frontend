@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Topbar from './containers/Topbar';
 import SidepaneMenu from './components/presentational/Sidepane-Menu';
-
-import BottomBar from './containers/BottomBar.js';
-import RouterMain from './components/RouterMain'
 import {Layout} from 'antd'
-//import Footer from './containers/BottomBar'
 import ContentContainer from './containers/ContentContainer'
 import { Row, Col} from 'antd';
 

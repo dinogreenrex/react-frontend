@@ -37,13 +37,13 @@ class LoginContainer extends React.Component {
                 email: logindata.username,
                 password: logindata.password,
             }).then(
-                (response) => {
-                    dispatch({type: 'LOGIN_SUCCESS', payload: response.data} );
-                },
-                (error) => {
-                    console.log(error.response);
-                    dispatch({type: 'LOGIN_ERROR', payload: error.response})
-                }
+              (response) => {
+                  dispatch({type: 'LOGIN_SUCCESS', payload: response.data} );
+              },
+              (error) => {
+                  console.log(error.response);
+                  dispatch({type: 'LOGIN_ERROR', payload: error.response})
+              }
             )
         });
     }
@@ -53,36 +53,36 @@ class LoginContainer extends React.Component {
     render() {
         let payload;
         return (
-            <div>
-                <div >
-                    <div className="Login-Button">
-                    {this.props.loginButtonActive ?
+          <div>
+              <div >
+                  <div className="Login-Button">
+                      {this.props.loginButtonActive ?
                         <div>
                             <Button onClick={this.ToggleForm}>Login</Button>
                         </div>
                         : <LoggedInUsersContainer />
-                    }
-                    </div>
-                    <div className="Login-Form"> { this.props.toggleform ?
-                        HOC1(LoginForm,
-                            payload={
-                                handleSubmit: this.handleLoginFormSubmit,
-                                processinglogin: this.props.propcessinglogin
-                                })
-                        : null }
+                      }
+                  </div>
+                  <div className="Login-Form"> { this.props.toggleform ?
+                    HOC1(LoginForm,
+                      payload={
+                          handleSubmit: this.handleLoginFormSubmit,
+                          processinglogin: this.props.propcessinglogin
+                      })
+                    : null }
 
-                    </div>
-                    <div className="Login-Form-Errors">
-                        {this.props.loginerror ?
-                            <div>
-                                <p>{this.props.loginerror.message}</p>
-                                {/*Recursively list all items in the object and array*/}
-                            </div>
-                            : null
-                        }
-                    </div>
-                </div>
-            </div>
+                  </div>
+                  <div className="Login-Form-Errors">
+                      {this.props.loginerror ?
+                        <div>
+                            <p>{this.props.loginerror.message}</p>
+                            {/*Recursively list all items in the object and array*/}
+                        </div>
+                        : null
+                      }
+                  </div>
+              </div>
+          </div>
         )
     }
 }
@@ -96,14 +96,14 @@ LoginContainer.propTypes = {
 }
 
 export default connect(
-    (state) => {
-        return {
-            toggleform: state.freducer.toggleform,
-            isUserLoggedIn: state.freducer.isUserLoggedIn,
-            loginButtonActive: state.freducer.loginButtonActive,
-            processinglogin: state.freducer.processinglogin,
-            loginerror: state.freducer.loginerror,
+  (state) => {
+      return {
+          toggleform: state.freducer.toggleform,
+          isUserLoggedIn: state.freducer.isUserLoggedIn,
+          loginButtonActive: state.freducer.loginButtonActive,
+          processinglogin: state.freducer.processinglogin,
+          loginerror: state.freducer.loginerror,
 
-        }
-    }
+      }
+  }
 )(LoginContainer)

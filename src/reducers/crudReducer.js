@@ -3,7 +3,7 @@ export function crudReducer(model) {
 	return (state = {
 		selectedRecordId: null,
 		listRecords: null,
-		activeRecord: null,
+		selectedRecord: null,
 		isRecordLoading: null,
 
 	} , action) => {
@@ -33,13 +33,38 @@ export function crudReducer(model) {
 			case `FETCH_${model}_SINGLE_SUCCESS`:
 				return Object.assign({}, state,{
 					isRecordLoading: false,
-					activeRecord: action.result,
+					selectedRecord: action.result,
 				})
 			case `FETCH_${model}_SINGLE_ERROR`:
 				return Object.assign({}, state,{
 					isRecordLoading: false,
-					activeRecord: action.error,
+					selectedRecord: action.error,
 				})
+			case `EDIT_PERSONADDRESS_SINGLE_RECORD`:
+				return Object.assign({}, state,{
+					editInProgress: true,
+				})
+			case `EDIT_PERSONADDRESS_SINGLE_RECORD_SUCCESS`:
+				const editedRecord = action.result;
+				const cloneListRecords = state.listRecords.slice();
+				cloneListRecords.map((item) => {
+					if(item.id === editedRecord.id){
+						item.street = editedRecord.street,
+						item.city = editedRecord.city,
+						item.country = editedRecord.country,
+						item.postalcode = editedRecord.postalcode
+					}
+				})
+				return Object.assign({}, state,{
+					editInProgress: false,
+					listRecords: cloneListRecords
+				})
+			case `EDIT_PERSONADDRESS_SINGLE_RECORD_ERROR`:
+				return Object.assign({}, state,{
+					editInProgress: false,
+					listRecordsError: action.error,
+				})
+
 			default:
 				return state;
 		}

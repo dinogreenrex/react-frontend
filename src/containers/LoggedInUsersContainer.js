@@ -18,23 +18,23 @@ class LoggedInUsersContainer extends React.Component {
         let payload;
 
         return(
-            <div className="topbar-logged-in-user-container">
-                {HOC1(
-                    LoggedInUser, payload=
-                        {usersession: this.props.usersession}
-                    )
-                }
-                <Button onClick={this.logoutUser}> Logout </Button>
-            </div>
+          <div className="topbar-logged-in-user-container">
+              {HOC1(
+                LoggedInUser, payload=
+                {usersession: this.props.usersession}
+              )
+              }
+              <Button onClick={this.logoutUser}> Logout </Button>
+          </div>
         )
     }
 }
 
 export default connect(
-    (state) => {
-        return {
-            usersession: state.freducer.usersession,
-        }
-    }
+  (state) => {
+      return {
+          usersession: state.freducer.usersession,
+      }
+  }
 
 )(LoggedInUsersContainer);

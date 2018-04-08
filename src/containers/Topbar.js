@@ -23,9 +23,9 @@ class Topbar extends React.Component {
 
     render() {
         return (
-            <div className="topbar">
-               <LoginContainer />
-            </div>
+          <div className="topbar">
+              <LoginContainer />
+          </div>
         )
     }
 }
@@ -35,10 +35,10 @@ Topbar.propTypes = {
     isUserLoggedIn: PropTypes.bool.isRequired,
 }
 export default connect(
-    (state) => {
-        return {
-            toggleform: state.freducer.toggleform,
-            isUserLoggedIn: state.freducer.isUserLoggedIn,
-        }
-    }
+  (state) => {
+      return {
+          toggleform: state.freducer.toggleform,
+          isUserLoggedIn: state.freducer.isUserLoggedIn,
+      }
+  }
 )(Topbar);

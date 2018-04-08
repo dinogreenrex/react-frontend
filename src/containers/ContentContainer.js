@@ -5,9 +5,7 @@ import {Route,withRouter} from 'react-router-dom'
 import {PersonAddressListColumns, PersonListColumns} from '../components/ListColumnDefinition'
 import {Row,Col} from 'antd'
 import {AbstractList} from './AbstractList'
-import {TableToolbar} from '../components/presentational/TableToolbar'
-import {EditRecordContainer} from './EditRecordContainer'
-import {SimpleForm} from '../components/presentational/SimpleForm'
+import PropTypes from 'prop-types'
 
 class ContentContainer extends React.Component {
   constructor(props) {
@@ -18,13 +16,15 @@ class ContentContainer extends React.Component {
     return {
       Person: {
         model: 'Person',
-        url: 'http://localhost/api/koalas',
-        columns: PersonListColumns
+        url: 'http://localhost/api/person',
+        columns: PersonListColumns,
+        editBaseUrl: 'http://localhost/api/person' // + / {recordid}
       },
       PersonAddress: {
         model: 'PersonAddress',
         url: 'http://localhost/api/PersonAddress',
-        columns: PersonAddressListColumns
+        columns: PersonAddressListColumns,
+        editBaseUrl: 'http://localhost/api/PersonAddress' // + / {recordid}
       }
     }
   }
@@ -38,37 +38,43 @@ class ContentContainer extends React.Component {
 
 //              <SimpleForm selectedRecordId={this.props}/>
     console.log(this.props.match)
-      let isAuth = 1;
-      return (
-          <div className="content" style={{width: '100%'}}>
-              <Route exact
-                 path="/Relations"
-                 component={Relations} />
+    let isAuth = 1;
+    return (
+      <div className="content" style={{width: '100%'}}>
+        <Route exact
+               path="/Relations"
+               component={Relations} />
 
 
-              <Route exact
-                 path="/Address"
-                 render={() => <AbstractList
-                   {...crudSettings.PersonAddress}
-                   {...this.props.PersonAddress}
-                   {...commonSettings}
-                   {...this.props.JingaForms}
-                 />}
-              />
+        <Route exact
+               path="/Address"
+               render={() => <AbstractList
+                 {...crudSettings.PersonAddress}
+                 {...this.props.PersonAddress}
+                 {...commonSettings}
+                 {...this.props.JingaForms.PersonAddress}
+               />}
+        />
 
-            <Route exact
-                   path="/TabTests"
-                   render={() => <AbstractList
-                     {...crudSettings.Person}
-                     {...this.props.Person}
-                     {...commonSettings}
-                     {...this.props.JingaForms}
-                   />}
-            />
-          </div>
-      )
+        <Route exact
+               path="/TabTests"
+               render={() => <AbstractList
+                 {...crudSettings.Person}
+                 {...this.props.Person}
+                 {...commonSettings}
+                 {...this.props.JingaForms.Person}
+               />}
+        />
+      </div>
+    )
   }
 }
+ContentContainer.propTypes = {
+  Person: PropTypes.object,
+  PersonAddress: PropTypes.object,
+  JingaForms: PropTypes.object.isRequired,
+}
+
 export default withRouter(connect(
   state => {
     return {

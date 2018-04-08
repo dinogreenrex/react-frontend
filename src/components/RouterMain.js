@@ -6,31 +6,22 @@ import App from '../App'
 
 
 
-
 class RouterMain extends React.Component {
-    constructor(props){
-        super(props);
-        console.log("Router" + this.props);
-    }
+  constructor(props){
+    super(props);
+  }
 
-    render() {
-        let isAuth=this.props.isUserLoggedIn;
-        return (
-                <Router>
-                <div>
-                        <Route
-                            path="/"
-                            component={App} />
-
-                </div>
-                </Router>
-        )
-    }
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route
+            path="/"
+            component={App} />
+        </div>
+      </Router>
+    )
+  }
 }
-export default connect(
-    (state) => {
-        return {
-            isUserLoggedIn: state.freducer.isUserLoggedIn
-        }
-    }
-)(RouterMain);
+
+export default RouterMain;
