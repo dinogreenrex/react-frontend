@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import { Table, Button, Row, Col, Popconfirm, message,Icon } from 'antd';
 import axios from 'axios';
 import {connect} from 'react-redux'
-import {TableToolbar} from '../components/presentational/TableToolbar'
-import SimpleForm from '../components/presentational/SimpleForm'
+import TableToolbar from '../components/presentational/TableToolbar'
+import {SingleRecordForm} from '../components/presentational/SingleRecordForm'
 import PropTypes from 'prop-types'
 
-export class AbstractList extends React.Component {
+class AbstractfulList extends React.Component {
 
 	/**
 	 * model
@@ -17,13 +17,6 @@ export class AbstractList extends React.Component {
 
 	constructor(props){
 		super(props)
-		this.editRecord = this.editRecord.bind(this);
-		this.deleteRecord = this.deleteRecord.bind(this);
-	}
-	editRecord(cRecord){
-	}
-	deleteRecord(cRecord){
-
 	}
 
 	loadData(model) {
@@ -63,7 +56,6 @@ export class AbstractList extends React.Component {
 
 	render(){
 		const model = this.props.model
-		const EditRecordForm = '';
 		const rowSelection = {
 			onSelect: (selectedRowKeys, selections , selectedRows) => {
 				this.props.dispatch({type:`${model}_RECORD_SELECTION`, selectedRecordId: selectedRowKeys.id});
@@ -75,7 +67,15 @@ export class AbstractList extends React.Component {
 		console.log(this.props);
 		return (
 			<div>
-				<SimpleForm {...this.props.selectedRecord} />
+				<div className="recordForm" >
+					{this.props.toolbarAction === 'edit' ?
+						<SingleRecordForm {...this.props.selectedRecord} /> : null
+					}
+
+					{this.props.toolbarAction === 'insert' ?
+						<SingleRecordForm /> : null
+					}
+				</div>
 				<TableToolbar selectedRecordId={this.props.selectedRecordId } />
 				<Table
 					rowKey={record=>record.id}
@@ -96,12 +96,21 @@ export class AbstractList extends React.Component {
 	}
 }
 
-AbstractList.PropTypes = {
+AbstractfulList.propTypes = {
 	model: PropTypes.string.isRequired,
-	selectedRecord: PropTypes.object.isRequired,
-	selectedRecordId: PropTypes.number.isRequired,
+	selectedRecord: PropTypes.object,
+	selectedRecordId: PropTypes.number,
 	columns: PropTypes.array.isRequired,
 	url: PropTypes.string.isRequired,
-	listRecords: PropTypes.array.isRequired,
-	fetchInProgress: PropTypes.bool.isRequired,
+	listRecords: PropTypes.array,
+	fetchInProgress: PropTypes.bool,
 }
+
+export const AbstractList = connect(
+	state => {
+		return {
+			toolbarAction: state.freducer.toolbarAction,
+			showRecordForm: state.freducer.showRecordForm,
+		}
+	}
+)(AbstractfulList);

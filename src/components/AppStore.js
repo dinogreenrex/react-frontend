@@ -54,8 +54,8 @@ export default function InitStore(preloadedState) {
         personAddressReducer: crudReducer('PersonAddress'),
         personReducer: crudReducer('Person'),
         jingaForms: combineForms({
-            personAddress: PersonAddress,
-            person: Person,
+            PersonAddress: PersonAddress,
+            Person: Person,
         }, 'jingaForms'),
     }
     const reducer = combineReducers(reducers);

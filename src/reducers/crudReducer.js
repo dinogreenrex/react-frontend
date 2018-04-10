@@ -4,7 +4,10 @@ export function crudReducer(model) {
 		selectedRecordId: null,
 		listRecords: null,
 		selectedRecord: null,
+		selectedRecordError: null,
 		isRecordLoading: null,
+		showRecordForm: null,
+		toolbarAction: null,
 
 	} , action) => {
 		switch(action.type) {
@@ -38,28 +41,28 @@ export function crudReducer(model) {
 			case `FETCH_${model}_SINGLE_ERROR`:
 				return Object.assign({}, state,{
 					isRecordLoading: false,
-					selectedRecord: action.error,
+					selectedRecordError: action.error,
 				})
-			case `EDIT_PERSONADDRESS_SINGLE_RECORD`:
+			case `EDIT_${model}_SINGLE_RECORD`:
 				return Object.assign({}, state,{
 					editInProgress: true,
 				})
-			case `EDIT_PERSONADDRESS_SINGLE_RECORD_SUCCESS`:
-				const editedRecord = action.result;
-				const cloneListRecords = state.listRecords.slice();
-				cloneListRecords.map((item) => {
-					if(item.id === editedRecord.id){
-						item.street = editedRecord.street,
-						item.city = editedRecord.city,
-						item.country = editedRecord.country,
-						item.postalcode = editedRecord.postalcode
-					}
-				})
+			case `EDIT_${model}_SINGLE_RECORD_SUCCESS`:
+					const editedRecord = action.result;
+					const cloneListRecords = state.listRecords.slice();
+					cloneListRecords.map((item) => {
+						if(item.id === editedRecord.id){
+							item.street = editedRecord.street,
+							item.city = editedRecord.city,
+							item.country = editedRecord.country,
+							item.postalcode = editedRecord.postalcode
+						}
+					})
 				return Object.assign({}, state,{
 					editInProgress: false,
 					listRecords: cloneListRecords
 				})
-			case `EDIT_PERSONADDRESS_SINGLE_RECORD_ERROR`:
+			case `EDIT_${model}_SINGLE_RECORD_ERROR`:
 				return Object.assign({}, state,{
 					editInProgress: false,
 					listRecordsError: action.error,

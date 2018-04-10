@@ -81,7 +81,6 @@ export default withRouter(connect(
       Person: state.personReducer,
       PersonAddress: state.personAddressReducer,
       JingaForms: state.jingaForms,
-
     }
   }
 )(ContentContainer))
