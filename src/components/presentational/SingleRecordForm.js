@@ -62,7 +62,7 @@ class SimpleForm extends React.Component {
 		let model = this.props.model;
 		let recordid = this.props.id;
 		this.props.dispatch(dispatch => {
-			dispatch({type: `EDIT_${model}_SINGLE_RECORD`, editInProgress: true});
+			dispatch({type: `EDIT_${model}_SINGLE`, editInProgress: true});
 			axios.put(`http://localhost/api/${model}/${this.props.id}`, {
 				id: recordid,
 				street: values.street.value,
@@ -71,11 +71,11 @@ class SimpleForm extends React.Component {
 				postcode: values.postalcode.value,
 			}).then(
 				(response) => {
-					dispatch({type: `EDIT_${model}_SINGLE_RECORD_SUCCESS` , result: response.data} );
+					dispatch({type: `EDIT_${model}_SINGLE_SUCCESS` , result: response.data} );
 				},
 				(error) => {
 					console.log(error.response);
-					dispatch({type: `EDIT_${model}_SINGLE_RECORD_ERROR`, error: error.response})
+					dispatch({type: `EDIT_${model}_SINGLE_ERROR`, error: error.response})
 				}
 			)
 		});

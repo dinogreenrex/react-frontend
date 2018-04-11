@@ -130,23 +130,6 @@ const freducer = (state = {
                 selectedRow: action.row,
             })
 
-        case 'EDIT_RECORD':
-            return Object.assign({}, state, {
-                showRecordForm: true,
-                selectedRecordId: action.record,
-                toolbarAction: 'edit',
-            })
-        case 'DELETE_RECORD':
-            return Object.assign({}, state, {
-                showRecordForm: false,
-                toolbarAction: 'delete',
-            })
-        case 'INSERT_RECORD':
-            return Object.assign({}, state, {
-                showRecordForm: true,
-                toolbarAction: 'insert',
-            })
-
         default:
             return state
     }

@@ -17,6 +17,7 @@ class AbstractfulList extends React.Component {
 
 	constructor(props){
 		super(props)
+		this.deleteSingle = this.deleteSingle.bind(this);
 	}
 
 	loadData(model) {
@@ -49,7 +50,22 @@ class AbstractfulList extends React.Component {
 			)
 		})
 	}
+	deleteSingle(model,recordId){
+		this.props.dispatch(dispatch => {
+			dispatch({type: `DELETE_${model}_SINGLE`});
+			axios.delete(`${this.props.url}/${recordId}`, {
+				params: {id: recordId}
+			}).then(
+				(response) => {
+					dispatch({type: `DELETE_${model}_SINGLE_SUCCESS`, result: response.data} );
+				},
 
+				(error) => {
+					dispatch({type: `DELETE_${model}_SINGLE_ERROR`, error: error.response.data.message })
+				}
+			)
+		})
+	}
 	componentWillMount(){
 		this.loadData(this.props.model)
 	}
@@ -69,14 +85,18 @@ class AbstractfulList extends React.Component {
 			<div>
 				<div className="recordForm" >
 					{this.props.toolbarAction === 'edit' ?
-						<SingleRecordForm {...this.props.selectedRecord} /> : null
+						<SingleRecordForm {...this.props.selectedRecord} /> : null }
 					}
 
 					{this.props.toolbarAction === 'insert' ?
 						<SingleRecordForm /> : null
 					}
+					{
+						this.props.toolbarAction === 'delete' ?
+							this.deleteSingle(model, this.props.selectedRecordId) : null
+					}
 				</div>
-				<TableToolbar selectedRecordId={this.props.selectedRecordId } />
+				<TableToolbar selectedRecordId={this.props.selectedRecordId} />
 				<Table
 					rowKey={record=>record.id}
 					rowSelection={rowSelection}
@@ -106,11 +126,4 @@ AbstractfulList.propTypes = {
 	fetchInProgress: PropTypes.bool,
 }
 
-export const AbstractList = connect(
-	state => {
-		return {
-			toolbarAction: state.freducer.toolbarAction,
-			showRecordForm: state.freducer.showRecordForm,
-		}
-	}
-)(AbstractfulList);
+export const AbstractList = AbstractfulList;

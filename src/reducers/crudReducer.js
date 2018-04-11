@@ -6,8 +6,8 @@ export function crudReducer(model) {
 		selectedRecord: null,
 		selectedRecordError: null,
 		isRecordLoading: null,
-		showRecordForm: null,
 		toolbarAction: null,
+		showRecordForm: false,
 
 	} , action) => {
 		switch(action.type) {
@@ -43,11 +43,11 @@ export function crudReducer(model) {
 					isRecordLoading: false,
 					selectedRecordError: action.error,
 				})
-			case `EDIT_${model}_SINGLE_RECORD`:
+			case `EDIT_${model}_SINGLE`:
 				return Object.assign({}, state,{
 					editInProgress: true,
 				})
-			case `EDIT_${model}_SINGLE_RECORD_SUCCESS`:
+			case `EDIT_${model}_SINGLE_SUCCESS`:
 					const editedRecord = action.result;
 					const cloneListRecords = state.listRecords.slice();
 					cloneListRecords.map((item) => {
@@ -62,10 +62,41 @@ export function crudReducer(model) {
 					editInProgress: false,
 					listRecords: cloneListRecords
 				})
-			case `EDIT_${model}_SINGLE_RECORD_ERROR`:
+			case `EDIT_${model}_SINGLE_ERROR`:
 				return Object.assign({}, state,{
 					editInProgress: false,
 					listRecordsError: action.error,
+				})
+
+			case `DELETE_${model}_SINGLE`:
+				return Object.assign({}, state,{
+					editInProgress: true,
+				})
+			case `DELETE_${model}_SINGLE_SUCCESS`:
+				const deletedRecord = action.result; //should return the id of the deleted record
+				const records = state.listRecords.slice();
+				return Object.assign({}, state,{
+					deleteInProgress: true,
+				})
+			case `DELETE_${model}_SINGLE_ERROR`:
+				return Object.assign({}, state,{
+					editInProgress: false,
+					listRecordsError: action.error,
+				})
+			case 'EDIT_RECORD':
+				return Object.assign({}, state, {
+					showRecordForm: true,
+					toolbarAction: 'edit',
+				})
+			case 'DELETE_RECORD':
+				return Object.assign({}, state, {
+					showRecordForm: false,
+					toolbarAction: 'delete',
+				})
+			case 'INSERT_RECORD':
+				return Object.assign({}, state, {
+					showRecordForm: true,
+					toolbarAction: 'insert',
 				})
 
 			default:
