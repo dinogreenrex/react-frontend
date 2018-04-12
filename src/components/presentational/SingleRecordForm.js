@@ -10,7 +10,8 @@ class SimpleForm extends React.Component {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
-		this.handleSubmit= this.handleSubmit.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleEdit = this.handleEdit.bind(this);
 
 	}
 	componentWillMount(){
@@ -42,6 +43,7 @@ class SimpleForm extends React.Component {
 		this.props.dispatch(actions.change(street, nextProps.street));
 		this.props.dispatch(actions.change(country, nextProps.country));
 		this.props.dispatch(actions.change(postcode, nextProps.postalcode));
+		console.log(this.props.url);
 	}
 
 	componentDidUpdate(nextProps){
@@ -54,37 +56,69 @@ class SimpleForm extends React.Component {
 	}
 	handleUpdate(form) {
 		console.log('update of form');
+		console.log(this.props.url);
 
 		console.log(form);
 	}
+
+	//handle submit of edit record and insert record. url for insert is
+	/*
+			baseapiurl/${model}
+	url for edit is
+			baseapiurl/${model}/id
+	url should be passed from parrent component.
+	*/
 	handleSubmit(values) {
 		console.log(values);
+		let url = this.props.submitUrl;
 		let model = this.props.model;
-		let recordid = this.props.id;
 		this.props.dispatch(dispatch => {
-			dispatch({type: `EDIT_${model}_SINGLE`, editInProgress: true});
-			axios.put(`http://localhost/api/${model}/${this.props.id}`, {
-				id: recordid,
+			dispatch({type: `INSERT_${model}`, editInProgress: true});
+			axios.post(`${url}`, {
 				street: values.street.value,
 				city: values.city.value,
 				country: values.country.value,
-				postcode: values.postalcode.value,
+				postcode: values.postcode.value,
 			}).then(
 				(response) => {
-					dispatch({type: `EDIT_${model}_SINGLE_SUCCESS` , result: response.data} );
+					dispatch({type: `INSERT_${model}_SUCCESS` , result: response.data} );
 				},
 				(error) => {
 					console.log(error.response);
-					dispatch({type: `EDIT_${model}_SINGLE_ERROR`, error: error.response})
+					dispatch({type: `INSERT_${model}_ERROR`, error: error.response})
 				}
 			)
 		});
 	}
+	handleEdit(values){
+		let url = this.props.submitUrl;
+		let model = this.props.model;
+		this.props.dispatch(dispatch => {
+			dispatch({type: `EDIT_${model}`, editInProgress: true});
+			axios.put(`${url}`, {
+				id: this.props.id,
+				street: values.street.value,
+				city: values.city.value,
+				country: values.country.value,
+				postcode: values.postcode.value,
+			}).then(
+				(response) => {
+					dispatch({type: `EDIT_${model}_SUCCESS` , result: response.data, editInProgress:false } );
+				},
+				(error) => {
+					console.log(error.response);
+					dispatch({type: `EDIT_${model}_ERROR`, error: error.response, editInProgress:false })
+				}
+			)
+		})
+	}
 
-	render() {
+	render(){
 		const test = 'dummy';
 		return (
-			<Form model="jingaForms.PersonAddress.formFields" onSubmit={this.handleSubmit}>
+			<Form model="jingaForms.PersonAddress.formFields" onSubmit={
+				this.props.component === 'insert' ? this.handleSubmit : this.handleEdit
+			}>
 				<Row type="flex" justify="start">
 					<Col span={6}>
 						<label>City</label>
@@ -142,9 +176,10 @@ class SimpleForm extends React.Component {
 //Abstract Form
 SimpleForm.propTypes = {
 	id: PropTypes.number,
+	url: PropTypes.string,
 	city: PropTypes.string,
 	street: PropTypes.string,
 	country: PropTypes.string,
 	postalcode: PropTypes.string,
 }
-export const SingleRecordForm = connect()(SimpleForm)
+export const SingleRecordForm = connect()(SimpleForm);

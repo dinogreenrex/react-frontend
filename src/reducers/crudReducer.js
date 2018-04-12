@@ -43,11 +43,12 @@ export function crudReducer(model) {
 					isRecordLoading: false,
 					selectedRecordError: action.error,
 				})
-			case `EDIT_${model}_SINGLE`:
+			case `EDIT_${model}`:
 				return Object.assign({}, state,{
 					editInProgress: true,
+					component: 'edit',
 				})
-			case `EDIT_${model}_SINGLE_SUCCESS`:
+			case `EDIT_${model}_SUCCESS`:
 					const editedRecord = action.result;
 					const cloneListRecords = state.listRecords.slice();
 					cloneListRecords.map((item) => {
@@ -62,7 +63,7 @@ export function crudReducer(model) {
 					editInProgress: false,
 					listRecords: cloneListRecords
 				})
-			case `EDIT_${model}_SINGLE_ERROR`:
+			case `EDIT_${model}_ERROR`:
 				return Object.assign({}, state,{
 					editInProgress: false,
 					listRecordsError: action.error,
@@ -83,22 +84,45 @@ export function crudReducer(model) {
 					editInProgress: false,
 					listRecordsError: action.error,
 				})
-			case 'EDIT_RECORD':
-				return Object.assign({}, state, {
-					showRecordForm: true,
-					toolbarAction: 'edit',
-				})
-			case 'DELETE_RECORD':
+
+			case 'DELETE':
 				return Object.assign({}, state, {
 					showRecordForm: false,
-					toolbarAction: 'delete',
+					component: 'delete',
 				})
-			case 'INSERT_RECORD':
+			case 'DELETE_SUCCESS':
+				return Object.assign({}, state, {
+					showRecordForm: false,
+				})
+			case 'DELETE_ERROR':
+				return Object.assign({}, state, {
+					showRecordForm: false,
+				})
+			case `INSERT_${model}`:
 				return Object.assign({}, state, {
 					showRecordForm: true,
-					toolbarAction: 'insert',
+					component: 'insert',
+					selectedRecord: null,
+					selectedRecordId: null,
 				})
-
+			case `INSERT_${model}_SUCCESS`:
+				let newListOfRecords = state.listRecords.slice();
+				newListOfRecords = newListOfRecords.concat(action.result);
+				return Object.assign({}, state, {
+					showRecordForm: true,
+					listRecords: newListOfRecords
+				})
+			case `INSERT_${model}_RECORD_ERROR`:
+				return Object.assign({}, state, {
+					showRecordForm: true,
+					insertRecordError: action.error,
+				})
+			case 'NULL_SELECTIONS':
+				return Object.assign({}, state, {
+					component: null,
+					selectedRecord: null,
+					selectedRecordId: null,
+				})
 			default:
 				return state;
 		}

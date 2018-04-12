@@ -79,24 +79,39 @@ class AbstractfulList extends React.Component {
 			},
 			type: 'radio',
 		};
-
-		console.log(this.props);
+		let url = `${this.props.url}/${this.props.selectedRecordId}`
+		console.log(this.props.url);
 		return (
+			/*
+			I have a base url of localhost/api/${model}
+			 */
 			<div>
 				<div className="recordForm" >
-					{this.props.toolbarAction === 'edit' ?
-						<SingleRecordForm {...this.props.selectedRecord} /> : null }
+					{this.props.component === 'edit' ?
+
+						<SingleRecordForm
+							{...this.props.selectedRecord}
+							submitUrl = {url}
+							model = {this.props.model}
+						/> : null }
 					}
 
-					{this.props.toolbarAction === 'insert' ?
-						<SingleRecordForm /> : null
+					{this.props.component === 'insert' ?
+						<SingleRecordForm
+							submitUrl = {this.props.url}
+							model = {this.props.model}
+						  component = {this.props.component} //component to be renamed to action, operation,
+						/> : null //add url from previous component.
 					}
 					{
-						this.props.toolbarAction === 'delete' ?
+						this.props.component === 'delete' ?
 							this.deleteSingle(model, this.props.selectedRecordId) : null
 					}
 				</div>
-				<TableToolbar selectedRecordId={this.props.selectedRecordId} />
+				<TableToolbar
+					selectedRecordId={this.props.selectedRecordId}
+					model={this.props.model}
+				/>
 				<Table
 					rowKey={record=>record.id}
 					rowSelection={rowSelection}

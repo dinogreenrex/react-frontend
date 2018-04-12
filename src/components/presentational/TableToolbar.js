@@ -11,13 +11,13 @@ class TableToolbar extends React.Component {
 	}
 	editRecord(record){
 		console.log(record);
-		this.props.dispatch({type: "EDIT_RECORD", recordId: this.props.selectedRecordId, toolbarAction: 'edit'})
+		this.props.dispatch({type: `EDIT_${this.props.model}`, recordId: this.props.selectedRecordId, component: 'edit'})
 	}
 	deleteRecord(record){
-		this.props.dispatch({type: "DELETE_RECORD", recordId: this.props.selectedRecordId, toolbarAction: 'delete'})
+		this.props.dispatch({type: `DELETE_${this.props.model}`, recordId: this.props.selectedRecordId, component: 'delete'})
 	}
 	insertRecord(record){
-		this.props.dispatch({type: "INSERT_RECORD", recordId: this.props.selectedRecordId, toolbarAction: 'edit'})
+		this.props.dispatch({type: `INSERT_${this.props.model}`, recordId: this.props.selectedRecordId, component: 'insert'})
 	}
 	cancelEdit(record){
 		console.log(record);
