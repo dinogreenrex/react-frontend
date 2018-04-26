@@ -68,36 +68,6 @@ export function crudReducer(model) {
 					editInProgress: false,
 					listRecordsError: action.error,
 				})
-
-			case `DELETE_${model}_SINGLE`:
-				return Object.assign({}, state,{
-					editInProgress: true,
-				})
-			case `DELETE_${model}_SINGLE_SUCCESS`:
-				const deletedRecord = action.result; //should return the id of the deleted record
-				const records = state.listRecords.slice();
-				return Object.assign({}, state,{
-					deleteInProgress: true,
-				})
-			case `DELETE_${model}_SINGLE_ERROR`:
-				return Object.assign({}, state,{
-					editInProgress: false,
-					listRecordsError: action.error,
-				})
-
-			case 'DELETE':
-				return Object.assign({}, state, {
-					showRecordForm: false,
-					component: 'delete',
-				})
-			case 'DELETE_SUCCESS':
-				return Object.assign({}, state, {
-					showRecordForm: false,
-				})
-			case 'DELETE_ERROR':
-				return Object.assign({}, state, {
-					showRecordForm: false,
-				})
 			case `INSERT_${model}`:
 				return Object.assign({}, state, {
 					showRecordForm: true,
@@ -116,6 +86,31 @@ export function crudReducer(model) {
 				return Object.assign({}, state, {
 					showRecordForm: true,
 					insertRecordError: action.error,
+				})
+			case `DELETE_${model}`:
+				return Object.assign({}, state, {
+					showRecordForm: true,
+					component: 'delete',
+				})
+			case `DELETE_${model}_SUCCESS`:
+				let listRecords = state.listRecords.slice();
+				let removedRec = null;
+				listRecords.map(item =>
+					item.id === action.result ? removedRec = item : removedRec = null
+
+			)
+				let index = listRecords.indexOf(removedRec);
+				listRecords.splice(index, 1);
+				return Object.assign({}, state, {
+					showRecordForm: false,
+					component: 'null',
+					listRecords: listRecords,
+				})
+			case `DELETE_${model}_ERROR`:
+				return Object.assign({}, state, {
+					showRecordForm: false,
+					deleteRecordError: action.error,
+					component: 'null',
 				})
 			case 'NULL_SELECTIONS':
 				return Object.assign({}, state, {

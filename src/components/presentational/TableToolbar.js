@@ -31,12 +31,12 @@ class TableToolbar extends React.Component {
 
 				<Button icon="edit" disabled={buttonDisabled}
 				        onClick={this.editRecord}>Edit</Button>
-
-				<Popconfirm title="Are you sure delete this task?"
-				            onConfirm={this.deleteRecord}
-				            onCancel={this.cancelEdit} okText="Yes" cancelText="No">
-					<Button icon="delete" disabled={buttonDisabled} >Delete</Button>
-				</Popconfirm>
+				
+					<Button icon="delete"
+					        disabled={buttonDisabled}
+					        onClick={this.deleteRecord}>
+						Delete
+					</Button>
 
 			</Button.Group>
 		)

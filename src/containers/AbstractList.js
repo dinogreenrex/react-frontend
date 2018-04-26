@@ -52,16 +52,15 @@ class AbstractfulList extends React.Component {
 	}
 	deleteSingle(model,recordId){
 		this.props.dispatch(dispatch => {
-			dispatch({type: `DELETE_${model}_SINGLE`});
 			axios.delete(`${this.props.url}/${recordId}`, {
 				params: {id: recordId}
 			}).then(
 				(response) => {
-					dispatch({type: `DELETE_${model}_SINGLE_SUCCESS`, result: response.data} );
+					dispatch({type: `DELETE_${model}_SUCCESS`, result: response.data} );
 				},
 
 				(error) => {
-					dispatch({type: `DELETE_${model}_SINGLE_ERROR`, error: error.response.data.message })
+					dispatch({type: `DELETE_${model}_ERROR`, error: error.response.data.message })
 				}
 			)
 		})
