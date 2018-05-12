@@ -93,7 +93,6 @@ class AbstractfulList extends React.Component {
 							submitUrl = {url}
 							model = {this.props.model}
 						/> : null }
-					}
 
 					{this.props.component === 'insert' ?
 						<SingleRecordForm
@@ -107,6 +106,7 @@ class AbstractfulList extends React.Component {
 							this.deleteSingle(model, this.props.selectedRecordId) : null
 					}
 				</div>
+
 				<TableToolbar
 					selectedRecordId={this.props.selectedRecordId}
 					model={this.props.model}
