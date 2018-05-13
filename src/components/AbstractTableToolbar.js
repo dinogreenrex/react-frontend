@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
-
+import {connect} from 'react-redux';
 import {Button,Popconfirm} from 'antd'
+
 class TableToolbarBase extends Component {
 	constructor(props) {
 		super(props);
+	}
+	editRecord=(e) => {
+		e.preventDefault();
+		this.props.dispatch({type: `EDIT_${this.props.model}`})
+	}
+
+	insertRecord = () => {
+
 	}
 
 	render() {
@@ -13,7 +22,7 @@ class TableToolbarBase extends Component {
 
 			<Button icon="plus-circle">Insert</Button>
 
-			<Button icon="edit" disabled={buttonDisabled} >Edit</Button>
+			<Button icon="edit" onClick={(e)=>this.editRecord(e)} disabled={buttonDisabled} >Edit</Button>
 
 
 			<Popconfirm title="Are you sure delete this task?"  >
@@ -23,4 +32,4 @@ class TableToolbarBase extends Component {
 		)
 	}
 }
-export const AbstractTableToolbar = TableToolbarBase;
+export const AbstractTableToolbar = connect()(TableToolbarBase);

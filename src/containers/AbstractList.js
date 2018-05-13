@@ -17,6 +17,7 @@ class AbstractfulList extends React.Component {
 	componentDidMount(){
 		loadDataBase(this.props.model,this.props.url)
 	}
+	
 
 	render(){
 		return (
@@ -25,8 +26,10 @@ class AbstractfulList extends React.Component {
 			 */
 			<div>
 
-				<AbstractTableToolbar />
-				<AbstractTable records={this.props.listRecords} columns={this.props.columns} loading={this.props.fetchInProgress} />
+				<AbstractTable records={this.props.listRecords} columns={this.props.columns} loading={this.props.fetchInProgress} type="radio" model={this.props.model} />
+				{/* Edit Dispatch an action */}
+				<AbstractTableToolbar model={this.props.model} />
+
 			</div>
 
 

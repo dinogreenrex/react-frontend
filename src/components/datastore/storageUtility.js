@@ -52,3 +52,4 @@ export const loadDataBase =(model,url) => {
 		)
 	})
 }
+
