@@ -18,13 +18,18 @@ class ContentContainer extends React.Component {
         model: 'Person',
         url: 'http://localhost/api/person',
         columns: PersonListColumns,
-        editBaseUrl: 'http://localhost/api/person' // + / {recordid}
+        editBaseUrl: 'http://localhost/api/person', // + / {recordid}
       },
       PersonAddress: {
         model: 'PersonAddress',
         url: 'http://localhost/api/PersonAddress',
         columns: PersonAddressListColumns,
-        editBaseUrl: 'http://localhost/api/PersonAddress' // + / {recordid}
+        editBaseUrl: 'http://localhost/api/PersonAddress', // + / {recordid}
+        tabs: [{
+          tab: 'Person Addresses ',
+          key: 1,
+	        content: 'test',
+        }]
       }
     }
   }
@@ -52,7 +57,6 @@ class ContentContainer extends React.Component {
                  {...crudSettings.PersonAddress}
                  {...this.props.PersonAddress}
                  {...commonSettings}
-                 {...this.props.JingaForms.PersonAddress}
                />}
         />
 
@@ -62,7 +66,6 @@ class ContentContainer extends React.Component {
                  {...crudSettings.Person}
                  {...this.props.Person}
                  {...commonSettings}
-                 {...this.props.JingaForms.Person}
                />}
         />
       </div>

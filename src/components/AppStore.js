@@ -8,55 +8,11 @@ import freducer from '../reducers/reduce'
 import {crudReducer} from '../reducers/crudReducer'
 
 export default function InitStore(preloadedState) {
-    const PersonAddress = {
-        formFields: {
-            city: {
-                label: 'City',
-                value: ''
-            },
-            street: {
-                label: 'Street',
-                value: '',
-            },
-            country: {
-                label: 'Country',
-                value: '',
-            },
-            postcode: {
-                label: 'Post Code',
-                value: '',
-            },
-        }
-    };
-    const Person = {
-        formFields: {
-            fname: {
-                label: 'First Name',
-                value: ''
-            },
-            lname: {
-                label: 'Last Name',
-                value: '',
-            },
-            height: {
-                label: 'Height',
-                value: '',
-            },
-            kilograms: {
-                label: 'Kilograms',
-                value: '',
-            },
-        }
-    }
 
     const reducers = {
         freducer,
         personAddressReducer: crudReducer('PersonAddress'),
         personReducer: crudReducer('Person'),
-        jingaForms: combineForms({
-            PersonAddress: PersonAddress,
-            Person: Person,
-        }, 'jingaForms'),
     }
     const reducer = combineReducers(reducers);
 
